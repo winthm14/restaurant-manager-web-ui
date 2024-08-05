@@ -15,6 +15,8 @@ RUN npm install
 # Generate the build of the application
 RUN npm run build
 
+ARG APP_NAME
+
 RUN ls -la /usr/local/app/dist/${APP_NAME}
 
 # Stage 2: Serve app with nginx server
