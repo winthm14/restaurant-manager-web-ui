@@ -10,9 +10,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    node-version: 22
 
     steps:
+    - name: Set env
+      run: echo "NODE_VERSION=22" >> $GITHUB_ENV
+
     - name: Checkout Code
       uses: actions/checkout@v4
 
@@ -23,10 +25,10 @@ jobs:
         echo "app_name=$app_name" >> $GITHUB_ENV
         echo "app_version=$app_version" >> $GITHUB_ENV
 
-    - name: Use Node.js ${{ node-version }}
+    - name: Use Node.js $NODE_VERSION
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ node-version }}
+        node-version: $NODE_VERSION
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
