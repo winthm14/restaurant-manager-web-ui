@@ -24,8 +24,8 @@ jobs:
         export app_version=$(node -p "require('./package.json').version")
         echo "app_name=$app_name" >> $GITHUB_ENV
         echo "app_version=$app_version" >> $GITHUB_ENV
-        echo ${{ env.app_name }}
-        echo ${{ env.app_version }}
+        echo "${{ env.app_name }}"
+        echo "${{ env.app_version }}"
 
     - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v4
