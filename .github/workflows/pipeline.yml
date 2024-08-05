@@ -13,11 +13,19 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: 22
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Extract App Info
+        run: |
+          export app_name=$(node -p "require('./package.json').name")
+          export app_version=$(node -p "require('./package.json').version")
+          echo "app_name=$app_name" >> $GITHUB_ENV
+          echo "app_version=$app_version" >> $GITHUB_ENV
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
@@ -25,3 +33,4 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
+
